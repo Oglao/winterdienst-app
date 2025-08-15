@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Winterdienst - DEBUG VERSION</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; }
+        button { 
+            background: #3b82f6; color: white; border: none; 
+            padding: 15px 30px; margin: 10px; border-radius: 5px; 
+            cursor: pointer; font-size: 18px; 
+        }
+        button:hover { background: #2563eb; }
+        .content { 
+            background: white; padding: 20px; border-radius: 8px; 
+            margin: 20px 0; min-height: 200px; 
+        }
+        .debug { 
+            background: #fef2f2; border: 2px solid #fecaca; 
+            padding: 15px; border-radius: 5px; margin: 10px 0; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 Winterdienst App - DEBUG VERSION</h1>
+        
+        <div class="debug">
+            <strong>🔍 DEBUG INFO:</strong><br>
+            JavaScript Status: <span id="jsStatus">Laden...</span><br>
+            Letzter Klick: <span id="lastClick">Keiner</span><br>
+            Klick-Anzahl: <span id="clickCount">0</span><br>
+            Aktuelle Zeit: <span id="currentTime">Laden...</span>
+        </div>
+
+        <h2>🔧 Button Tests:</h2>
+        
+        <!-- INLINE onclick - sollte IMMER funktionieren -->
+        <button onclick="alert('✅ INLINE onClick funktioniert!'); updateDebug('inline');">
+            1️⃣ Inline Test
+        </button>
+        
+        <!-- Einfache Funktion -->
+        <button onclick="simpleTest()">
+            2️⃣ Einfache Funktion
+        </button>
+        
+        <!-- Alert + Counter -->
+        <button onclick="counterTest()">
+            3️⃣ Counter Test
+        </button>
+        
+        <!-- Navigation Test -->
+        <button onclick="navTest('dashboard')">
+            4️⃣ Navigation Test
+        </button>
+
+        <div id="content" class="content">
+            <h2>👋 Willkommen zur Debug-Version!</h2>
+            <p>Diese Version testet verschiedene JavaScript-Funktionen.</p>
+            <p><strong>Klicken Sie auf die Buttons oben, um zu testen welche funktionieren.</strong></p>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #e0f2fe; border-radius: 5px;">
+                <h3>🎯 Was getestet wird:</h3>
+                <ul>
+                    <li><strong>Button 1:</strong> Inline onClick (grundlegendste Form)</li>
+                    <li><strong>Button 2:</strong> Einfache JavaScript-Funktion</li>
+                    <li><strong>Button 3:</strong> Alert + Variable ändern</li>
+                    <li><strong>Button 4:</strong> Navigation (DOM ändern)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let clickCounter = 0;
+        
+        // Debug-Status aktualisieren
+        function updateDebug(action) {
+            document.getElementById('jsStatus').textContent = 'AKTIV ✅';
+            document.getElementById('lastClick').textContent = action;
+            document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+            console.log('Debug updated:', action);
+        }
+        
+        // Einfache Test-Funktion
+        function simpleTest() {
+            console.log('simpleTest() called');
+            alert('✅ Einfache Funktion funktioniert!');
+            updateDebug('simpleTest');
+        }
+        
+        // Counter-Test
+        function counterTest() {
+            console.log('counterTest() called');
+            clickCounter++;
+            document.getElementById('clickCount').textContent = clickCounter;
+            alert('✅ Counter funktioniert! Klick #' + clickCounter);
+            updateDebug('counterTest #' + clickCounter);
+        }
+        
+        // Navigation-Test
+        function navTest(page) {
+            console.log('navTest() called with:', page);
+            alert('✅ Navigation Test zu: ' + page);
+            
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>🎯 Navigation Test erfolgreich!</h2>
+                <p><strong>Seite: ${page}</strong></p>
+                <p>Zeitpunkt: ${new Date().toLocaleTimeString()}</p>
+                <p>Klick-Anzahl: ${clickCounter}</p>
+                
+                <button onclick="goBack()" style="background: #10b981; padding: 10px 20px; border: none; color: white; border-radius: 5px; cursor: pointer;">
+                    🔙 Zurück zur Startseite
+                </button>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #f0fdf4; border-radius: 5px; border: 2px solid #22c55e;">
+                    <h3>✅ JavaScript funktioniert!</h3>
+                    <p>Falls Sie das sehen können, funktioniert die Navigation.</p>
+                </div>
+            `;
+            updateDebug('navTest: ' + page);
+        }
+        
+        // Zurück-Funktion
+        function goBack() {
+            console.log('goBack() called');
+            location.reload(); // Seite neu laden
+        }
+        
+        // Initial setup
+        updateDebug('Seite geladen');
+        
+        console.log('🚨 DEBUG PAGE LOADED - JavaScript is working!');
+    </script>
+</body>
+</html>
