@@ -4,6 +4,14 @@ Eine vollständige Lösung für das Management von Winterdienst-Teams mit Live-T
 
 ## Features
 
+### 🆕 Neue KI-Features
+- 🔍 **QR-Code Scanner** für Routen & Fahrzeuge
+- 🎤 **Sprachaufnahmen** für Notizen mit Wiedergabe
+- 📦 **Barcode-Scanner** für Material-Erfassung
+- 🧠 **KI-Wettervorhersage** mit Arbeitsbelastung-Analyse
+- ⚡ **Automatische Routenoptimierung** (3 Algorithmen)
+
+### Core Features
 - 📍 **Live GPS-Tracking** der Mitarbeiter
 - 🗺️ **Interaktive Karten** mit Leaflet/OpenStreetMap
 - ⏱️ **Arbeitszeit-Erfassung** mit Start/Stop/Pause
@@ -17,12 +25,13 @@ Eine vollständige Lösung für das Management von Winterdienst-Teams mit Live-T
 ## Technologie-Stack
 
 ### Frontend
-- **React 18** mit Hooks
+- **React 19** mit Hooks
 - **Tailwind CSS** für Styling
 - **Leaflet** für interaktive Karten
 - **Socket.IO Client** für Real-time Updates
 - **Axios** für API-Calls
 - **Lucide React** für Icons
+- **HTML5 QR/Barcode Scanner** für Mobile Scanner
 
 ### Backend
 - **Node.js** mit Express
@@ -153,8 +162,15 @@ REACT_APP_VERSION=1.0.0
 
 ### Backend (server/.env)
 ```bash
-# Datenbank-Verbindung
-MONGODB_URI=mongodb://localhost:27017/winterdienst
+# PostgreSQL Datenbank-Verbindung
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=winterdienst
+DB_USER=winterdienst_user
+DB_PASSWORD=secure_password
+
+# PostgREST API
+POSTGREST_URL=http://localhost:3001
 
 # Sicherheit
 JWT_SECRET=winterdienst_super_secure_jwt_secret_2024
@@ -186,10 +202,10 @@ railway init
 railway up
 ```
 
-### Database (MongoDB Atlas)
-1. Account erstellen auf [mongodb.com](https://mongodb.com)
-2. Cluster erstellen
-3. Connection String in `MONGODB_URI` einfügen
+### Database (PostgreSQL Cloud)
+1. PostgreSQL Cloud-Service wählen (z.B. Heroku Postgres, Railway, Supabase)
+2. Datenbank erstellen
+3. Connection Details in server/.env einfügen
 
 ## Mobile App
 
@@ -205,17 +221,17 @@ npx create-expo-app WinterdienstMobile
 
 ### Häufige Probleme
 
-**MongoDB Verbindung fehlgeschlagen:**
+**PostgreSQL Verbindung fehlgeschlagen:**
 ```bash
-# MongoDB starten
+# PostgreSQL starten
 # Windows:
-net start MongoDB
+net start postgresql-x64-14
 
 # macOS:
-brew services start mongodb-community
+brew services start postgresql
 
 # Linux:
-sudo systemctl start mongod
+sudo systemctl start postgresql
 ```
 
 **Port bereits belegt:**
@@ -243,6 +259,6 @@ MIT License - siehe [LICENSE](LICENSE) für Details.
 
 Bei Fragen oder Problemen:
 1. Prüfen Sie die Console auf Fehlermeldungen
-2. Stellen Sie sicher, dass MongoDB läuft
+2. Stellen Sie sicher, dass PostgreSQL läuft
 3. Überprüfen Sie die Environment-Variablen
 4. Erstellen Sie ein Issue auf GitHub
